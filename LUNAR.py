@@ -1,12 +1,7 @@
-# imports
 import os
-# import torch 
-# import torch.nn as nn
-# import torch.optim as optim
 from sklearn.metrics import roc_auc_score
 import utils
 import variables as var
-# from torch_geometric.nn import MessagePassing
 from copy import deepcopy
 import mindspore
 import mindspore.ops as ops
