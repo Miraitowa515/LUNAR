@@ -2,10 +2,8 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import os
-# import torch
 import mindspore as ms
 from mindspore import Tensor, ops
-# from torch_geometric.data import Data
 import variables as var
 from scipy.io import loadmat
 import faiss
