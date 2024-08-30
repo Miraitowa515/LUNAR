@@ -12,37 +12,7 @@ import mindspore
 import mindspore.ops as ops
 from mindspore import Tensor, nn, set_seed
 # Message passing scheme
-# class GNN1(MessagePassing):
-#     def __init__(self,k):
-#         super(GNN1, self).__init__(flow="target_to_source")
-#         self.k = k
-#         self.hidden_size = 256
-#         self.network = nn.Sequential(
-#             nn.Linear(k,self.hidden_size),
-#             nn.Tanh(),
-#             nn.Linear(self.hidden_size,self.hidden_size),
-#             nn.Tanh(),
-#             nn.Linear(self.hidden_size,self.hidden_size),
-#             nn.Tanh(),
-#             nn.Linear(self.hidden_size,1),
-#             nn.Sigmoid()
-#             )
 
-#     def forward(self, x, edge_index, edge_attr):
-#         self.network = self.network.to(dtype = torch.float32)
-#         out = self.propagate(edge_index = edge_index, x=x, edge_attr=edge_attr, k = self.k, network=self.network)
-#         return out
-
-#     def message(self,x_i,x_j,edge_attr):
-#         # message is the edge weight
-#         return edge_attr
-
-#     def aggregate(self, inputs, index, k, network):
-#         # concatenate all k messages
-#         self.input_aggr = inputs.reshape(-1,k)
-#         # pass through network
-#         out = self.network(self.input_aggr)
-#         return out
 class GNN1(nn.Cell):
     def __init__(self, k):
         super(GNN1, self).__init__()
