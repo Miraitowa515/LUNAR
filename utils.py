@@ -83,34 +83,6 @@ def negative_samples(train_x, train_y, val_x, val_y, test_x, test_y, k, sample_t
     return x,y,neighbor_mask,train_mask,val_mask,test_mask, dist, idx
     # return x.astype('float32'), y.astype('float32'), neighbor_mask.astype('float32'), train_mask.astype('float32'), val_mask.astype('float32'), test_mask.astype('float32'), dist, idx
 
-# loading negative samples
-# def generate_negative_samples(x, sample_type, proportion, epsilon):
-    
-#     n_samples = int(proportion*(len(x)))
-#     n_dim = x.shape[-1]
-        
-#     #M
-#     randmat = np.random.rand(n_samples,n_dim) < 0.3
-#     # uniform samples
-#     rand_unif = (epsilon* (1-2*np.random.rand(n_samples,n_dim)))
-#     #  subspace perturbation samples
-#     rand_sub = np.tile(x, (proportion,1)) + randmat*(epsilon*np.random.randn(n_samples,n_dim))
-    
-#     if sample_type == 'UNIFORM':
-#         neg_x = rand_unif
-#     if sample_type == 'SUBSPACE':
-#         neg_x = rand_sub
-
-#     if sample_type == 'MIXED':
-#         # randomly sample from uniform and gaussian negative samples
-#         neg_x = np.concatenate((rand_unif, rand_sub),0)
-#         neg_x = neg_x[np.random.choice(np.arange(len(neg_x)), size = n_samples)]
-
-#     neg_y = np.ones(len(neg_x))
-#     # neg_x = Tensor(neg_x, ms.float32)
-#     # neg_y = Tensor(neg_y, ms.float32)
-#     return neg_x.astype('float32'), neg_y.astype('float32')
-
 def generate_negative_samples(x, sample_type, proportion, epsilon):
     n_samples = int(proportion * len(x))
     n_dim = x.shape[-1]
@@ -170,28 +142,6 @@ def find_neighbors(x, y, neighbor_mask, k):
     
     return dist, idx
 
-# def find_neighbors(x, y, neighbor_mask, k):
-#     # 将neighbor_mask==1的部分作为最近邻搜索的候选者
-#     x_neighbors = x[neighbor_mask == 1]
-#     x_non_neighbors = x[neighbor_mask == 0]
-
-#     # 最近邻对象
-#     nbrs_neighbors = NearestNeighbors(n_neighbors=k+1, algorithm='auto', metric='euclidean').fit(x_neighbors)
-#     nbrs_non_neighbors = NearestNeighbors(n_neighbors=k, algorithm='auto', metric='euclidean').fit(x_neighbors)
-    
-#     # 对邻居候选者进行最近邻搜索
-#     dist_train, idx_train = nbrs_neighbors.kneighbors(x_neighbors)
-#     # 移除第一个最近邻以消除自环
-#     dist_train, idx_train = dist_train[:, 1:], idx_train[:, 1:]
-    
-#     # 对非邻居候选者进行最近邻搜索
-#     dist_test, idx_test = nbrs_non_neighbors.kneighbors(x_non_neighbors)
-    
-#     # 合并结果
-#     dist = np.vstack((dist_train, dist_test))
-#     idx = np.vstack((idx_train, idx_test))
-    
-#     return dist, idx
 # create graph object out of x, y, distances and indices of neighbours
 def build_graph(x, y, dist, idx):
     
